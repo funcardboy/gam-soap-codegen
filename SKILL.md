@@ -1,63 +1,104 @@
 ---
 name: gam-soap-codegen
-description: "Use when writing GAM SOAP API v202608 Python code."
-version: 1.0.0
+description: "Use when user describes data they want from GAM — translate natural language to GAM SOAP API v202608 Python code."
+version: 2.0.0
 author: sam
 license: MIT
 metadata:
   hermes:
     tags: [gam, soap-api, codegen, googleads, v202608]
-    related_skills: [gam-api-reference]
 ---
 
-# GAM SOAP API v202608 — Python Codegen
+# GAM SOAP API v202608 — Natural Language → Python Codegen
 
-## Overview
+**GitHub**: https://github.com/funcardboy/gam-soap-codegen
 
-Grounded code generation for the Google Ad Manager SOAP API (v202608) using the
-`googleads` Python library. Backed by two local corpora:
+## Purpose
 
-- **Scrapped official reference** (every type/method page under
-  `developers.google.com/ad-manager/api/reference/v202608/`):
-  `~/Projects/gam-api/data/v202608/docs/*.md` + `index.json`
-- **Official example scripts** (Apache-2.0, vendored):
-  `~/Projects/gam-api/data/v202608/examples/<service>/...`
+User describes in plain language what GAM data they want (e.g. "幫我拿所有 active line items" / "get all creatives for advertiser 123"). This skill translates that into working Python code using the `googleads` SOAP API.
 
-Distilled quick references live in this skill: `references/services/<Service>.md`
-(method tables + type lists) and `references/examples-index.md` (task → example path).
+## Step 1 — Map request to service + method
 
-For older-version doc searches (v202602, ChromaDB RAG) use the sibling skill
-`gam-api-reference`. If the user's code pins a different version than v202608,
-say so explicitly — field sets change between versions.
+Common mappings:
 
-## Regenerating service cheatsheets
+| User wants | Service | Method |
+|---|---|---|
+| Line items / campaigns | `LineItemService` | `getLineItemsByStatement` |
+| Creatives | `CreativeService` | `getCreativesByStatement` |
+| Orders | `OrderService` | `getOrdersByStatement` |
+| Ad units / inventory | `InventoryService` | `getAdUnitsByStatement` |
+| Forecast | `ForecastService` | `getAvailabilityForecast` |
+| Reports (aggregated data) | `ReportService` | `runReportJob` |
+| Audience segments | `AudienceSegmentService` | `getAudienceSegmentsByStatement` |
+| Custom targeting | `CustomTargetingService` | `getCustomTargetingKeysByStatement` |
 
-The `references/services/<Service>.md` files are generated from the raw docs. To regenerate when docs change:
+If unsure which service: `skill_view(name='gam-soap-codegen', file_path='references/examples-index.md')` to browse all 162 examples.
 
-```bash
-python3 ~/Projects/gam-api/scripts/build_service_cheatsheets.py
+## Step 2 — Load service cheatsheet
+
+```python
+skill_view(name='gam-soap-codegen', file_path='references/services/<ServiceName>.md')
 ```
 
-This reads `data/v202608/docs/*.md` and extracts:
-- Service overview + method signatures
-- All type definitions with field tables (name, type, description only — no narrative)
+Cheatsheet contains: method signatures, request/response types, all field names + types + descriptions. **Use field names exactly as documented — never guess.**
 
-The output is compact: each service file contains everything needed for codegen without requiring agents to grep through 1999 individual markdown files.
+## Step 3 — Check official examples
 
-**Design principle**: Keep service cheatsheets per-service (31 files), not merged into one monolithic file. This balances completeness (all types included) with token efficiency (agents load only the service they need).
+```python
+skill_view(name='gam-soap-codegen', file_path='references/examples-index.md')
+# Then read the matching example:
+read_file('~/.hermes/skills/software-development/gam-soap-codegen/references/examples/<service>/<file>.py')
+```
 
-## Codegen workflow (follow in order)
+Adapt from examples — don't rewrite from scratch.
 
-1. **Identify the service + operation** (e.g. "create VAST creative" → CreativeService.createCreatives).
-2. **Load the cheatsheet**: `skill_view(name='gam-soap-codegen', file_path='references/services/CreativeService.md')`.
-3. **Get exact field names/types** — never invent fields. If the cheatsheet is not enough:
-   ```bash
-   grep -ril "VastRedirectCreative" ~/Projects/gam-api/data/v202608/docs | head
-   read_file <matched doc>        # full field table incl. required/read-only flags
-   ```
-4. **Find a matching official example**: check `references/examples-index.md`, then read the example file. Adapt it; don't rewrite from scratch.
-5. **Emit code** using the standard client bootstrap (below), with required fields
-   marked, read-only fields omitted, and enums quoted exactly as in the docs.
+## Step 4 — Generate code
+
+Standard client bootstrap:
+
+```python
+from googleads import ad_manager
+
+client = ad_manager.AdManagerClient.LoadFromStorage()  # reads ~/googleads.yaml
+service = client.GetService('LineItemService', version='v202608')
+
+# Filter with PQL statement
+stmt = {'query': "WHERE status = 'DELIVERING' ORDER BY id LIMIT 500"}
+resp = service.getLineItemsByStatement(stmt)
+results = resp.get('results', [])
+```
+
+For paginated results (>500):
+
+```python
+from googleads.ad_manager import StatementBuilder
+
+stmt = StatementBuilder(version='v202608').Where("status = 'DELIVERING'").Limit(500)
+while True:
+    resp = service.getLineItemsByStatement(stmt.ToStatement())
+    results = resp.get('results', [])
+    if not results:
+        break
+    for r in results:
+        print(r)
+    stmt.IncreaseOffsetBy(500)
+```
+
+## Pitfalls
+
+1. **Required vs read-only**: `id` is read-only on create; sending it → SOAP ApiError. Check field table before coding.
+2. **Enum strings are exact** — e.g. `'LINEAR'` not `'linear'`.
+3. **Dates are dicts**: `{'date': {'year': 2026, 'month': 10, 'day': 14}}`. DateTime adds `'hour'/'minute'/'second'` + `'timeZoneId': 'Asia/Hong_Kong'`.
+4. **Statement LIMIT max is 500** — always paginate.
+5. **perform*Action needs xsi_type**: `{'xsi_type': 'PauseLineItems'}` in the action dict.
+6. Don’t confuse with Google Ads API — this is Ad Manager (DFP), `googleads.ad_manager`.
+
+## Verification before handing code to Sam
+
+- [ ] Field names verified against service cheatsheet
+- [ ] Matches structure of an official example (cite the path)
+- [ ] `python3 -m py_compile <generated file>` passes
+- [ ] Mutating operations (create/update/perform*Action) flagged with rollback note
 
 ## Standard client bootstrap
 
