@@ -1,376 +1,53 @@
-# NetworkService Reference
-
-**Service**: NetworkService
-
-**Types**: 32
+# NetworkService Cheatsheet
 
 ## Methods
 
 ### getAllNetworks
-- **Response**: `Network[]`
+Returns the list of [Network](/ad-manager/api/reference/v202608/NetworkService.Network) objects to which the current login has access.
+Intended to be used without a network code in the SOAP header
+when the login may have more than one network associated with
+it.
 
 ### getCurrentNetwork
-- **Response**: `Network`
+Returns the current network for which requests are being made.
 
 ### getDefaultThirdPartyDataDeclaration
-- **Response**: `ThirdPartyDataDeclaration`
+Returns the default [ThirdPartyDataDeclaration](/ad-manager/api/reference/v202608/NetworkService.ThirdPartyDataDeclaration) for this network. If this setting has
+never been updated on your network, then this API response will be empty.
 
 ### makeTestNetwork
-- **Response**: `Network`
+Creates a new blank network for testing purposes using the current
+login.
+Each login(i.e. email address) can only have one test network.
+Data from any of your existing networks will not be transferred to
+the new test network. Once the test network is created, the test
+network can be used in the API by supplying the [Network.networkCode](/ad-manager/api/reference/v202608/NetworkService.Network#networkCode) in the SOAP
+header or by logging into the Ad Manager UI.
+Test networks are limited in the following ways:
+* Test networks cannot serve ads.
+* Because test networks cannot serve ads, reports will always
+come back without data.
+* Since forecasting requires serving history, forecast service
+results will be faked. See [ForecastService](/ad-manager/api/reference/v202608/ForecastService) for more info.
+* Test networks are, by default, Ad Manager networks and don't
+have any features from Ad Manager 360. To have additional features
+turned on, please contact your account manager.
+* Test networks are limited to 10,000 objects per entity
+type.
 
 ### updateNetwork
-- **Request**: `Network network`
-- **Response**: `Network`
+Updates the specified network. Currently, only the network display name can be updated.
 
 ## Types
 
-### ApiError
-
+### Network
 | Field | Type | Description |
 |-------|------|-------------|
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-
-### ApiVersionError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`ApiVersionError`** | | |
-
-### AuthenticationError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`AuthenticationError`** | | |
-
-### CollectionSizeError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`CollectionSizeError`** | | |
-
-### CommonError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`CommonError`** | | |
-
-### ExchangeSignupApiError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`ExchangeSignupApiError`** | | |
-
-### FeatureError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`FeatureError`** | | |
-
-### InternalApiError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`InternalApiError`** | | |
-
-### InvalidEmailError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`InvalidEmailError`** | | |
-
-### InventoryClientApiError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`InventoryClientApiError`** | | |
-
-### LiveStreamEventSlateError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`LiveStreamEventSlateError`** | | |
-
-### McmError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`McmError`** | | |
-
-### NetworkError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`NetworkError`** | | |
-
-### NotNullError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`NotNullError`** | | |
-
-### ParseError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`ParseError`** | | |
-
-### PermissionError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`PermissionError`** | | |
-
-### PrecisionError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`PrecisionError`** | | |
-
-### PublisherQueryLanguageContextError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`PublisherQueryLanguageContextError`** | | |
-
-### PublisherQueryLanguageSyntaxError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`PublisherQueryLanguageSyntaxError`** | | |
-
-### QuotaError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`QuotaError`** | | |
-
-### RequestError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`RequestError`** | | |
-
-### RequiredCollectionError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`RequiredCollectionError`** | | |
-
-### RequiredError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`RequiredError`** | | |
-
-### RequiredNumberError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`RequiredNumberError`** | | |
-
-### ServerError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`ServerError`** | | |
-
-### SetTopBoxCreativeError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`SetTopBoxCreativeError`** | | |
-
-### StatementError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`StatementError`** | | |
-
-### StringFormatError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`StringFormatError`** | | |
-
-### StringLengthError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`StringLengthError`** | | |
-
-### TypeError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`TypeError`** | | |
-
-### UniqueError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`UniqueError`** | | |
-
-### UrlError
-
-| Field | Type | Description |
-|-------|------|-------------|
-| **`ApiError` (inherited)** | | |
-| `fieldPath` | `string` | The OGNL field path to identify cause of error. |
-| `fieldPathElements` | `FieldPathElement[]` | A parsed copy of the field path. For example, the field path "operations[1].operand" corresponds to this list: {FieldPathElement(field = "operations", index = 1), FieldPathElement(field = "operand"... |
-| `trigger` | `string` | The data that caused the error. |
-| `errorString` | `string` | A simple string representation of the error and reason. |
-| **`UrlError`** | | |
-
+| `id` | int | Network ID |
+| `displayName` | string | Display name |
+| `networkCode` | string | Network code |
+| `timeZone` | string | Timezone |
+| `secondaryTimeZoneIds` | string[] | Secondary timezones |
+| `companyName` | string | Company name |
+| `effectiveUserId` | string | Effective user |
+| `propertyType` | PropertyType | Property type |
