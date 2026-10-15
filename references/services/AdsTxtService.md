@@ -1,7 +1,14 @@
-# AdsTxtService Cheatsheet
+# AdsTxtService Reference
+
+**Service**: AdsTxtService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/AdsTxtService
+**Types**: 0
 
 ## Methods
 
 ### getMcmSupplyChainDiagnosticsDownloadUrl
-Returns the download URL String for the MCM Manage Inventory SupplyChain diagnostics report.
-The report is refreshed twice daily.
+- See `https://developers.google.com/ad-manager/api/reference/v202608/AdsTxtService#getMcmSupplyChainDiagnosticsDownloadUrl`
+
+## Types
+
+

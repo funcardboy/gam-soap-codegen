@@ -1,28 +1,53 @@
-# InventoryService Cheatsheet
+# InventoryService Reference
+
+**Service**: InventoryService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/InventoryService
+**Types**: 8
 
 ## Methods
+- `createAdUnits(AdUnit[] adUnits) -> AdUnit[]`
+- `getAdUnitSizesByStatement(Statement filterStatement) -> AdUnitSize[]`
+- `getAdUnitsByStatement(Statement filterStatement) -> AdUnitPage` (PQL filterable: `id`, `name`, `adUnitCode`, `status`, `parentId`, `lastModifiedDateTime`, `smartSizeMode`, `targetWindow`)
+- `performAdUnitAction(AdUnitAction adUnitAction, Statement filterStatement) -> UpdateResult`
+- `updateAdUnits(AdUnit[] adUnits) -> AdUnit[]`
 
-### createAdUnits
-Creates new [AdUnit](/ad-manager/api/reference/v202608/InventoryService.AdUnit) objects.
+## Types
 
-### getAdUnitSizesByStatement
-Returns a set of all relevant [AdUnitSize](/ad-manager/api/reference/v202608/InventoryService.AdUnitSize) objects.
-The given [Statement](/ad-manager/api/reference/v202608/InventoryService.Statement) is currently ignored but may be honored in
-future versions.
+### AdUnit
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `string` | Uniquely identifies the `AdUnit`. Read-only, assigned by Google on creation. |
+| `parentId` | `string` | The ID of the `AdUnit`'s parent. Required on create (except root ad unit). |
+| `hasChildren` | `boolean` | `True` if the `AdUnit` has children. Read-only. |
+| `parentPath` | `AdUnitParent[]` | Ordered list of `AdUnitParent` objects (`id`, `name`, `adUnitCode`) from root to immediate parent. Read-only. |
+| `name` | `string` | The name of the `AdUnit`. Required, max 255 characters. |
+| `description` | `string` | A description of the `AdUnit`. Max 65,535 characters. |
+| `targetWindow` | `AdUnitTargetWindow` | The value to use for the HTML link's `target` attribute (`TOP`, `BLANK`). |
+| `status` | `InventoryStatus` | The status of the `AdUnit` (`ACTIVE`, `INACTIVE`, `ARCHIVED`). Read-only. |
+| `adUnitCode` | `string` | A string used to uniquely identify the `AdUnit` in GPT ad tags. Max 100 chars. |
+| `adUnitSizes` | `AdUnitSize[]` | The sizes that can be served inside this `AdUnit`. |
+| `isInterstitial` | `boolean` | Whether this is an out-of-page / interstitial ad unit. |
+| `isNative` | `boolean` | Whether this is a native ad unit. |
+| `isFluid` | `boolean` | Whether this is a fluid size ad unit. |
+| `explicitlyTargeted` | `boolean` | If `True`, line items must explicitly target this `AdUnit` to serve (Run-of-Network will not serve unless targeted). |
+| `adSenseSettings` | `AdSenseSettings` | AdSense settings for this `AdUnit`. |
+| `lastModifiedDateTime` | `DateTime` | The date and time this `AdUnit` was last modified. Read-only. |
+| `smartSizeMode` | `SmartSizeMode` | Smart size mode (`NONE`, `SMART_BANNER`, `DYNAMIC_SIZE`). |
+| `refreshRate` | `int` | Refresh rate in seconds for mobile app ad units (30..120). |
+| `externalSetTopBoxChannelId` | `string` | External channel ID for set-top box. |
+| `isSetTopBoxEnabled` | `boolean` | Whether enabled for set-top box. |
+| `applicationId` | `long` | The ID of the `MobileApplication` this `AdUnit` is linked to. |
 
-### getAdUnitsByStatement
-Gets a [AdUnitPage](/ad-manager/api/reference/v202608/InventoryService.AdUnitPage) of [AdUnit](/ad-manager/api/reference/v202608/InventoryService.AdUnit) objects that satisfy the given [Statement.query](/ad-manager/api/reference/v202608/InventoryService.Statement#query). The following fields are supported for filtering:
-| PQL Property | Object Property |
-| --- | --- |
-| `adUnitCode` | [AdUnit.adUnitCode](/ad-manager/api/reference/v202608/InventoryService.AdUnit#adUnitCode) |
-| `id` | [AdUnit.id](/ad-manager/api/reference/v202608/InventoryService.AdUnit#id) |
-| `name` | [AdUnit.name](/ad-manager/api/reference/v202608/InventoryService.AdUnit#name) |
-| `parentId` | [AdUnit.parentId](/ad-manager/api/reference/v202608/InventoryService.AdUnit#parentId) |
-| `status` | [AdUnit.status](/ad-manager/api/reference/v202608/InventoryService.AdUnit#status) |
-| `lastModifiedDateTime` | [AdUnit.lastModifiedDateTime](/ad-manager/api/reference/v202608/InventoryService.AdUnit#lastModifiedDateTime) |
+### AdUnitSize
+| Field | Type | Description |
+|-------|------|-------------|
+| `size` | `Size` | The dimensions (`width`, `height`, `isAspectRatio`) of the creative. |
+| `environmentType` | `EnvironmentType` | The environment type (`BROWSER`, `VIDEO_PLAYER`). |
+| `companions` | `AdUnitSize[]` | The companions for this video ad unit size. |
+| `fullDisplayString` | `string` | Display string (e.g. `"300x250"`). Read-only. |
+| `isAudio` | `boolean` | Whether the size represents an audio ad. |
 
-### performAdUnitAction
-Performs actions on [AdUnit](/ad-manager/api/reference/v202608/InventoryService.AdUnit) objects that match the given [Statement.query](/ad-manager/api/reference/v202608/InventoryService.Statement#query).
-
-### updateAdUnits
-Updates the specified [AdUnit](/ad-manager/api/reference/v202608/InventoryService.AdUnit) objects.
+## Enumerations
+- `InventoryStatus`: `ACTIVE`, `INACTIVE`, `ARCHIVED`
+- `AdUnitTargetWindow`: `TOP`, `BLANK`
+- `SmartSizeMode`: `NONE`, `SMART_BANNER`, `DYNAMIC_SIZE`

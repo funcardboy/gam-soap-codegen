@@ -1,7 +1,6 @@
-# GAM v202608 Examples Index
+# GAM SOAP API v202608 — Official Examples Index
 
 Total: 162 examples
-
 
 ## Adjustment
 
@@ -586,4 +585,3 @@ Total: 162 examples
 
 - **update_user_team_associations.py**:  It updates a user team association by setting the overridden access type to read
   - Path: `references/examples/user_team_association_service/update_user_team_associations.py`
-

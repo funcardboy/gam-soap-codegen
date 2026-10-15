@@ -1,20 +1,23 @@
-# ContentBundleService Cheatsheet
+# ContentBundleService Reference
+
+**Service**: ContentBundleService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/ContentBundleService
+**Types**: 2
 
 ## Methods
 
 ### createContentBundles
-Creates new [ContentBundle](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundle) objects.
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/ContentBundleService#createContentBundles`
 ### getContentBundlesByStatement
-Gets a [ContentBundlePage](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundlePage) of [ContentBundle](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundle) objects that satisfy the given [Statement.query](/ad-manager/api/reference/v202608/ContentBundleService.Statement#query). The following fields are supported for filtering:
-| PQL Property | Object Property |
-| --- | --- |
-| `id` | [ContentBundle.id](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundle#id) |
-| `name` | [ContentBundle.name](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundle#name) |
-| `status` | [ContentBundle.status](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundle#status) |
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/ContentBundleService#getContentBundlesByStatement`
 ### performContentBundleAction
-Performs actions on [ContentBundle](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundle) objects that match the given [Statement.query](/ad-manager/api/reference/v202608/ContentBundleService.Statement#query).
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/ContentBundleService#performContentBundleAction`
 ### updateContentBundles
-Updates the specified [ContentBundle](/ad-manager/api/reference/v202608/ContentBundleService.ContentBundle) objects.
+- See `https://developers.google.com/ad-manager/api/reference/v202608/ContentBundleService#updateContentBundles`
+
+## Types
+
+### ContentBundle
+- Standard `ContentBundleService` entity/page structure (`id`, `name`, `status` where applicable).
+### ContentBundlePage
+- Standard `ContentBundleService` entity/page structure (`id`, `name`, `status` where applicable).

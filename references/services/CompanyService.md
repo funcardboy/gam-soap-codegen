@@ -1,21 +1,29 @@
-# CompanyService Cheatsheet
+# CompanyService Reference
+
+**Service**: CompanyService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/CompanyService
+**Types**: 4
 
 ## Methods
+- `createCompanies(Company[] companies) -> Company[]`
+- `getCompaniesByStatement(Statement filterStatement) -> CompanyPage` (PQL filterable: `id`, `name`, `type`, `creditStatus`, `externalId`, `lastModifiedDateTime`)
+- `updateCompanies(Company[] companies) -> Company[]`
 
-### createCompanies
-Creates new [Company](/ad-manager/api/reference/v202608/CompanyService.Company) objects.
-
-### getCompaniesByStatement
-Gets a [CompanyPage](/ad-manager/api/reference/v202608/CompanyService.CompanyPage) of [Company](/ad-manager/api/reference/v202608/CompanyService.Company) objects that satisfy the given [Statement.query](/ad-manager/api/reference/v202608/CompanyService.Statement#query). The following fields are supported for filtering:
-| PQL Property | Object Property |
-| --- | --- |
-| `id` | [Company.id](/ad-manager/api/reference/v202608/CompanyService.Company#id) |
-| `name` | [Company.name](/ad-manager/api/reference/v202608/CompanyService.Company#name) |
-| `type` | [Company.type](/ad-manager/api/reference/v202608/CompanyService.Company#type) |
-| `lastModifiedDateTime` | [Company.lastModifiedDateTime](/ad-manager/api/reference/v202608/CompanyService.Company#lastModifiedDateTime) |
-
-### performCompanyAction
-Performs actions on [Company](/ad-manager/api/reference/v202608/CompanyService.Company) objects that match the given `Statement`.
-
-### updateCompanies
-Updates the specified [Company](/ad-manager/api/reference/v202608/CompanyService.Company) objects.
+## Types
+### Company
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `long` | Uniquely identifies the `Company`. Read-only. |
+| `name` | `string` | The full name of the company. Required, max 127 chars, unique per `type`. |
+| `type` | `Company.Type` | `ADVERTISER`, `HOUSE_ADVERTISER`, `AGENCY`, `HOUSE_AGENCY`, `AD_NETWORK`, `PARTNER`, `VIEWABILITY_PROVIDER`. Required. |
+| `address` | `string` | Physical address. |
+| `email` | `string` | Email address. |
+| `faxPhone` / `primaryPhone` | `string` | Phone numbers. |
+| `externalId` | `string` | External system ID. |
+| `comment` | `string` | Notes/comments. |
+| `creditStatus` | `Company.CreditStatus` | `ACTIVE`, `ON_HOLD`, `CREDIT_STOP`, `INACTIVE`, `BLOCKED`. |
+| `appliedLabels` | `AppliedLabel[]` | Labels applied directly to the company. |
+| `primaryContactId` | `long` | ID of the primary `Contact`. |
+| `appliedTeamIds` | `long[]` | IDs of teams associated with this company. |
+| `thirdPartyCompanyId` | `int` | Third-party company ID. |
+| `lastModifiedDateTime` | `DateTime` | Last modified timestamp. Read-only. |

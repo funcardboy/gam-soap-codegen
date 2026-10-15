@@ -1,22 +1,23 @@
-# LabelService Cheatsheet
+# LabelService Reference
+
+**Service**: LabelService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/LabelService
+**Types**: 2
 
 ## Methods
 
 ### createLabels
-Creates new [Label](/ad-manager/api/reference/v202608/LabelService.Label) objects.
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/LabelService#createLabels`
 ### getLabelsByStatement
-Gets a [LabelPage](/ad-manager/api/reference/v202608/LabelService.LabelPage) of [Label](/ad-manager/api/reference/v202608/LabelService.Label) objects that satisfy the given [Statement.query](/ad-manager/api/reference/v202608/LabelService.Statement#query). The following fields are supported for filtering:
-| PQL Property | Object Property |
-| --- | --- |
-| `id` | [Label.id](/ad-manager/api/reference/v202608/LabelService.Label#id) |
-| `type` | [Label.type](/ad-manager/api/reference/v202608/LabelService.Label#type) |
-| `name` | [Label.name](/ad-manager/api/reference/v202608/LabelService.Label#name) |
-| `description` | [Label.description](/ad-manager/api/reference/v202608/LabelService.Label#description) |
-| `isActive` | [Label.isActive](/ad-manager/api/reference/v202608/LabelService.Label#isActive) |
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/LabelService#getLabelsByStatement`
 ### performLabelAction
-Performs actions on [Label](/ad-manager/api/reference/v202608/LabelService.Label) objects that match the given [Statement.query](/ad-manager/api/reference/v202608/LabelService.Statement#query).
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/LabelService#performLabelAction`
 ### updateLabels
-Updates the specified [Label](/ad-manager/api/reference/v202608/LabelService.Label) objects.
+- See `https://developers.google.com/ad-manager/api/reference/v202608/LabelService#updateLabels`
+
+## Types
+
+### Label
+- Standard `LabelService` entity/page structure (`id`, `name`, `status` where applicable).
+### LabelPage
+- Standard `LabelService` entity/page structure (`id`, `name`, `status` where applicable).

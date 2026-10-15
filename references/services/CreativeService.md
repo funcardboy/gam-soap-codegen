@@ -1,23 +1,21 @@
-# CreativeService Cheatsheet
+# CreativeService Reference
+
+**Service**: CreativeService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/CreativeService
+**Types**: 25
 
 ## Methods
+- `createCreatives(Creative[] creatives) -> Creative[]`
+- `getCreativesByStatement(Statement filterStatement) -> CreativePage` (PQL filterable: `id`, `name`, `advertiserId`, `width`, `height`, `lastModifiedDateTime`)
+- `performCreativeAction(CreativeAction creativeAction, Statement filterStatement) -> UpdateResult`
+- `updateCreatives(Creative[] creatives) -> Creative[]`
 
-### createCreatives
-Creates new [Creative](/ad-manager/api/reference/v202608/CreativeService.Creative) objects.
-
-### getCreativesByStatement
-Gets a [CreativePage](/ad-manager/api/reference/v202608/CreativeService.CreativePage) of [Creative](/ad-manager/api/reference/v202608/CreativeService.Creative) objects that satisfy the given [Statement.query](/ad-manager/api/reference/v202608/CreativeService.Statement#query). The following fields are supported for filtering:
-| PQL Property | Object Property |
-| --- | --- |
-| `id` | [Creative.id](/ad-manager/api/reference/v202608/CreativeService.Creative#id) |
-| `name` | [Creative.name](/ad-manager/api/reference/v202608/CreativeService.Creative#name) |
-| `advertiserId` | [Creative.advertiserId](/ad-manager/api/reference/v202608/CreativeService.Creative#advertiserId) |
-| `width` | [Creative.size](/ad-manager/api/reference/v202608/CreativeService.Creative#size) |
-| `height` | [Creative.size](/ad-manager/api/reference/v202608/CreativeService.Creative#size) |
-| `lastModifiedDateTime` | [Creative.lastModifiedDateTime](/ad-manager/api/reference/v202608/CreativeService.Creative#lastModifiedDateTime) |
-
-### performCreativeAction
-Performs action on [Creative](/ad-manager/api/reference/v202608/CreativeService.Creative) objects that match the given [Statement.query](/ad-manager/api/reference/v202608/CreativeService.Statement#query).
-
-### updateCreatives
-Updates the specified [Creative](/ad-manager/api/reference/v202608/CreativeService.Creative) objects.
+## Common Creative Types (all inherit base `Creative` fields)
+- **Base `Creative` fields**: `advertiserId` (`long`, required), `id` (`long`, read-only), `name` (`string`, required), `size` (`Size`, required), `previewUrl` (`string`, read-only), `policyLabels` (`PolicyLabel[]`, read-only), `appliedLabels` (`AppliedLabel[]`), `lastModifiedDateTime` (`DateTime`, read-only), `customFieldValues` (`BaseCustomFieldValue[]`), `thirdPartyUrls` (`ThirdPartyUrl[]`).
+- **Subclasses (`xsi_type`)**:
+  - `ImageCreative`: `destinationUrl`, `primaryImageAsset` (`CreativeAsset`), `altText`, `thirdPartyImpressionTrackingUrls`
+  - `CustomCreative`: `htmlSnippet`, `customCreativeAssets`, `isInterstitial`, `isSafeFrameCompatible`, `destinationUrl`
+  - `ThirdPartyCreative`: `snippet`, `expandedSnippet`, `sslScanResult`, `sslManualOverride`, `isSafeFrameCompatible`
+  - `TemplateCreative`: `creativeTemplateId`, `creativeTemplateVariableValues` (`BaseCreativeTemplateVariableValue[]`), `isInterstitial`, `isNativeEligible`, `destinationUrl`
+  - `VideoCreative` / `VastRedirectCreative`: `vastXmlUrl`, `vastRedirectType` (`LINEAR`, `NON_LINEAR`, `LINEAR_AND_NON_LINEAR`), `duration`, `destinationUrl`, `trackingUrls`
+  - `AdExchangeCreative` / `AdSenseCreative` / `ClickTrackingCreative` / `InternalRedirectCreative` / ` Html5Creative`

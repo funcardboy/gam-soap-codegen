@@ -1,21 +1,23 @@
-# DaiEncodingProfileService Cheatsheet
+# DaiEncodingProfileService Reference
+
+**Service**: DaiEncodingProfileService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/DaiEncodingProfileService
+**Types**: 2
 
 ## Methods
 
 ### createDaiEncodingProfiles
-Creates new [DaiEncodingProfile](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfile) objects.
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/DaiEncodingProfileService#createDaiEncodingProfiles`
 ### getDaiEncodingProfilesByStatement
-Gets a [DaiEncodingProfilePage](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfilePage) of [DaiEncodingProfile](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfile) objects that satisfy the
-given [Statement.query](/ad-manager/api/reference/v202608/DaiEncodingProfileService.Statement#query). The following fields are supported for filtering:
-| PQL Property | Object Property |
-| --- | --- |
-| `id` | [DaiEncodingProfile.id](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfile#id) |
-| `status` | [DaiEncodingProfile.status](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfile#status) |
-| `name` | [DaiEncodingProfile.name](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfile#name) |
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/DaiEncodingProfileService#getDaiEncodingProfilesByStatement`
 ### performDaiEncodingProfileAction
-Performs actions on [DaiEncodingProfile](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfile) objects that match the given [Statement.query](/ad-manager/api/reference/v202608/DaiEncodingProfileService.Statement#query).
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/DaiEncodingProfileService#performDaiEncodingProfileAction`
 ### updateDaiEncodingProfiles
-Updates the specified [DaiEncodingProfile](/ad-manager/api/reference/v202608/DaiEncodingProfileService.DaiEncodingProfile) objects.
+- See `https://developers.google.com/ad-manager/api/reference/v202608/DaiEncodingProfileService#updateDaiEncodingProfiles`
+
+## Types
+
+### DaiEncodingProfile
+- Standard `DaiEncodingProfileService` entity/page structure (`id`, `name`, `status` where applicable).
+### DaiEncodingProfilePage
+- Standard `DaiEncodingProfileService` entity/page structure (`id`, `name`, `status` where applicable).

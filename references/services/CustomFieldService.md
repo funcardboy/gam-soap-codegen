@@ -1,39 +1,31 @@
-# CustomFieldService Cheatsheet
+# CustomFieldService Reference
+
+**Service**: CustomFieldService
+**Source**: https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService
+**Types**: 3
 
 ## Methods
 
 ### createCustomFieldOptions
-Creates new [CustomFieldOption](/ad-manager/api/reference/v202608/CustomFieldService.CustomFieldOption) objects.
-The following fields are required:
-* [CustomFieldOption.displayName](/ad-manager/api/reference/v202608/CustomFieldService.CustomFieldOption#displayName)
-* [CustomFieldOption.customFieldId](/ad-manager/api/reference/v202608/CustomFieldService.CustomFieldOption#customFieldId)
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService#createCustomFieldOptions`
 ### createCustomFields
-Creates new [CustomField](/ad-manager/api/reference/v202608/CustomFieldService.CustomField) objects.
-The following fields are required:
-* [CustomField.name](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#name)
-* [CustomField.entityType](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#entityType)
-* [CustomField.dataType](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#dataType)
-* [CustomField.visibility](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#visibility)
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService#createCustomFields`
 ### getCustomFieldOption
-Returns the [CustomFieldOption](/ad-manager/api/reference/v202608/CustomFieldService.CustomFieldOption) uniquely identified by the given ID.
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService#getCustomFieldOption`
 ### getCustomFieldsByStatement
-Gets a [CustomFieldPage](/ad-manager/api/reference/v202608/CustomFieldService.CustomFieldPage) of [CustomField](/ad-manager/api/reference/v202608/CustomFieldService.CustomField) objects that satisfy the given [Statement.query](/ad-manager/api/reference/v202608/CustomFieldService.Statement#query). The following fields are supported for filtering:
-| PQL Property | Object Property |
-| --- | --- |
-| `id` | [CustomField.id](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#id) |
-| `entityType` | [CustomField.entityType](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#entityType) |
-| `name` | [CustomField.name](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#name) |
-| `isActive` | [CustomField.isActive](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#isActive) |
-| `visibility` | [CustomField.visibility](/ad-manager/api/reference/v202608/CustomFieldService.CustomField#visibility) |
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService#getCustomFieldsByStatement`
 ### performCustomFieldAction
-Performs actions on [CustomField](/ad-manager/api/reference/v202608/CustomFieldService.CustomField) objects that match the given [Statement.query](/ad-manager/api/reference/v202608/CustomFieldService.Statement#query).
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService#performCustomFieldAction`
 ### updateCustomFieldOptions
-Updates the specified [CustomFieldOption](/ad-manager/api/reference/v202608/CustomFieldService.CustomFieldOption) objects.
-
+- See `https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService#updateCustomFieldOptions`
 ### updateCustomFields
-Updates the specified [CustomField](/ad-manager/api/reference/v202608/CustomFieldService.CustomField) objects.
+- See `https://developers.google.com/ad-manager/api/reference/v202608/CustomFieldService#updateCustomFields`
+
+## Types
+
+### CustomField
+- Standard `CustomFieldService` entity/page structure (`id`, `name`, `status` where applicable).
+### CustomFieldOption
+- Standard `CustomFieldService` entity/page structure (`id`, `name`, `status` where applicable).
+### CustomFieldPage
+- Standard `CustomFieldService` entity/page structure (`id`, `name`, `status` where applicable).

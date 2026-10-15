@@ -1,128 +1,883 @@
-# LineItemService Cheatsheet
+# LineItemService Reference
+
+**Service**: LineItemService
+
+**Types**: 173
 
 ## Methods
 
 ### createLineItems
-Creates new [LineItem](/ad-manager/api/reference/v202608/LineItemService.LineItem) objects.
+- **Request**: `LineItem[] lineItems`
+- **Response**: `LineItem[]`
 
 ### getLineItemsByStatement
-Gets a [LineItemPage](/ad-manager/api/reference/v202608/LineItemService.LineItemPage) of [LineItem](/ad-manager/api/reference/v202608/LineItemService.LineItem) objects that satisfy the given [Statement.query](/ad-manager/api/reference/v202608/LineItemService.Statement#query). The following fields are supported for filtering:
-| PQL property | Entity property |
-| --- | --- |
-| `CostType` | [LineItem.costType](/ad-manager/api/reference/v202608/LineItemService.LineItem#costType) |
-| `CreationDateTime` | [LineItem.creationDateTime](/ad-manager/api/reference/v202608/LineItemService.LineItem#creationDateTime) |
-| `DeliveryRateType` | [LineItem.deliveryRateType](/ad-manager/api/reference/v202608/LineItemService.LineItem#deliveryRateType) |
-| `EndDateTime` | [LineItem.endDateTime](/ad-manager/api/reference/v202608/LineItemService.LineItem#endDateTime) |
-| `ExternalId` | [LineItem.externalId](/ad-manager/api/reference/v202608/LineItemService.LineItem#externalId) |
-| `Id` | [LineItem.id](/ad-manager/api/reference/v202608/LineItemService.LineItem#id) |
-| `IsMissingCreatives` | [LineItem.isMissingCreatives](/ad-manager/api/reference/v202608/LineItemService.LineItem#isMissingCreatives) |
-| `IsSetTopBoxEnabled` | [LineItem.isSetTopBoxEnabled](/ad-manager/api/reference/v202608/LineItemService.LineItem#isSetTopBoxEnabled) |
-| `LastModifiedDateTime` | [LineItem.lastModifiedDateTime](/ad-manager/api/reference/v202608/LineItemService.LineItem#lastModifiedDateTime) |
-| `LineItemType` | [LineItem.lineItemType](/ad-manager/api/reference/v202608/LineItemService.LineItem#lineItemType) |
-| `Name` | [LineItem.name](/ad-manager/api/reference/v202608/LineItemService.LineItem#name) |
-| `OrderId` | [LineItem.orderId](/ad-manager/api/reference/v202608/LineItemService.LineItem#orderId) |
-| `StartDateTime` | [LineItem.startDateTime](/ad-manager/api/reference/v202608/LineItemService.LineItem#startDateTime) |
-| `Status` | [LineItem.status](/ad-manager/api/reference/v202608/LineItemService.LineItem#status) |
-| `UnitsBought` | [LineItem.unitsBought](/ad-manager/api/reference/v202608/LineItemService.LineItem#unitsBought) |
+- **Request**: `Statement filterStatement`
+- **Response**: `LineItemPage`
 
 ### performLineItemAction
-Performs actions on [LineItem](/ad-manager/api/reference/v202608/LineItemService.LineItem) objects that match the given [Statement.query](/ad-manager/api/reference/v202608/LineItemService.Statement#query).
+- **Request**: `LineItemAction lineItemAction`
+- **Request**: `Statement filterStatement`
+- **Response**: `UpdateResult`
 
 ### updateLineItems
-Updates the specified [LineItem](/ad-manager/api/reference/v202608/LineItemService.LineItem) objects.
+- **Request**: `LineItem[] lineItems`
+- **Response**: `LineItem[]`
+
+## Types
+
+### ActivateLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`ActivateLineItems`** | | |
+
+### AdUnitTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `adUnitId` | `string` | Included or excluded ad unit id. |
+| `includeDescendants` | `boolean` | Whether or not all descendants are included (or excluded) as part of including (or excluding) this ad unit. By default, the value is `true` which means targeting this ad unit will target all of its... |
+
+### AppliedLabel
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `labelId` | `long` | The ID of a created Label. |
+| `isNegated` | `boolean` | `isNegated` should be set to `true` to negate the effects of `labelId`. |
+
+### ArchiveLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`ArchiveLineItems`** | | |
+
+### AudienceSegmentCriteria
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`CustomCriteriaNode` (inherited)** | | |
+| **`CustomCriteriaLeaf` (inherited)** | | |
+| **`AudienceSegmentCriteria`** | | |
+| `audienceSegmentIds` | `long[]` | The ids of AudienceSegment objects used to target audience segments. This attribute is required. |
+
+### BandwidthGroup
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`BandwidthGroup`** | | |
+
+### BandwidthGroupTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isTargeted` | `boolean` | Indicates whether bandwidth groups should be targeted or excluded. This attribute is optional and defaults to `true`. |
+| `bandwidthGroups` | `Technology[]` | The bandwidth groups that are being targeted or excluded by the LineItem. |
+
+### BooleanValue
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Value` (inherited)** | | |
+| **`BooleanValue`** | | |
+| `value` | `boolean` | The boolean value. |
+
+### Browser
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`Browser`** | | |
+| `majorVersion` | `string` | Browser major version. |
+| `minorVersion` | `string` | Browser minor version. |
+
+### BrowserLanguage
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`BrowserLanguage`** | | |
+
+### BrowserLanguageTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isTargeted` | `boolean` | Indicates whether browsers languages should be targeted or excluded. This attribute is optional and defaults to `true`. |
+| `browserLanguages` | `Technology[]` | Browser languages that are being targeted or excluded by the LineItem. |
+
+### BrowserTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isTargeted` | `boolean` | Indicates whether browsers should be targeted or excluded. This attribute is optional and defaults to `true`. |
+| `browsers` | `Technology[]` | Browsers that are being targeted or excluded by the LineItem. |
+
+### BuyerUserListTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `hasBuyerUserListTargeting` | `boolean` | Whether the programmatic `LineItem` or `ProposalLineItem` object has buyer user list targeting. |
+
+### CmsMetadataCriteria
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`CustomCriteriaNode` (inherited)** | | |
+| **`CustomCriteriaLeaf` (inherited)** | | |
+| **`CmsMetadataCriteria`** | | |
+| `cmsMetadataValueIds` | `long[]` | The ids of CmsMetadataValue objects used to target CMS metadata. This attribute is required. |
+
+### ContentLabelTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `excludedContentLabelIds` | `long[]` |  |
+
+### ContentTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedContentIds` | `long[]` | The IDs of content being targeted by the `LineItem`. |
+| `excludedContentIds` | `long[]` | The IDs of content being excluded by the `LineItem`. |
+| `targetedVideoContentBundleIds` | `long[]` | A list of video content bundles, represented by ContentBundle IDs, that are being targeted by the `LineItem`. |
+| `excludedVideoContentBundleIds` | `long[]` | A list of video content bundles, represented by ContentBundle IDs, that are being excluded by the `LineItem`. |
+
+### CreativePlaceholder
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `size` | `Size` | The dimensions that the creative is expected to have. This attribute is required. |
+| `creativeTemplateId` | `long` | The native creative template ID. This value is only required if creativeSizeType is CreativeSizeType.NATIVE. |
+| `companions` | `CreativePlaceholder[]` | The companions that the creative is expected to have. This attribute can only be set if the line item it belongs to has a LineItem.environmentType of EnvironmentType.VIDEO\_PLAYER or LineItem.roadb... |
+| `appliedLabels` | `AppliedLabel[]` | The set of label frequency caps applied directly to this creative placeholder. |
+| `effectiveAppliedLabels` | `AppliedLabel[]` | Contains the set of labels applied directly to this creative placeholder as well as those inherited from the creative template from which this creative placeholder was instantiated. This field is r... |
+| `expectedCreativeCount` | `int` | Expected number of creatives that will be uploaded corresponding to this creative placeholder. This estimate is used to improve the accuracy of forecasting; for example, if label frequency capping ... |
+| `targetingName` | `string` | The name of the CreativeTargeting for creatives this placeholder represents. This attribute is optional. Specifying creative targeting here is for forecasting purposes only and has no effect on ser... |
+| `isAmpOnly` | `boolean` | Indicate if the expected creative of this placeholder has an AMP only variant. This attribute is optional. It is for forecasting purposes only and has no effect on serving. |
+
+### CreativeTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | `string` | The name of this creative targeting. This attribute is required. |
+| `targeting` | `Targeting` | The Targeting criteria of this creative targeting. This attribute is required. |
+
+### CustomCriteria
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`CustomCriteriaNode` (inherited)** | | |
+| **`CustomCriteriaLeaf` (inherited)** | | |
+| **`CustomCriteria`** | | |
+| `keyId` | `long` | The CustomTargetingKey.id of the CustomTargetingKey object that was created using CustomTargetingService. This attribute is required. |
+| `valueIds` | `long[]` | The ids of CustomTargetingValue objects to target the custom targeting key with id CustomCriteria.keyId. This attribute is required. |
+
+### CustomCriteriaLeaf
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`CustomCriteriaNode` (inherited)** | | |
+| **`CustomCriteriaLeaf`** | | |
+
+### CustomCriteriaSet
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`CustomCriteriaNode` (inherited)** | | |
+| **`CustomCriteriaSet`** | | |
+| `children` | `CustomCriteriaNode[]` | The custom criteria. This attribute is required. |
+
+### CustomPacingCurve
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `customPacingGoals` | `CustomPacingGoal[]` | The list of goals that make up the custom pacing curve. |
+
+### CustomPacingGoal
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `startDateTime` | `DateTime` | The start date and time of the goal. This field is required unless `useLineItemStartDateTime` is true. |
+| `useLineItemStartDateTime` | `boolean` | Whether the LineItem.startDateTime should be used for the start date and time of this goal. This field is not persisted and if it is set to true, the `startDateTime` field will be populated by the ... |
+| `amount` | `long` |  |
+
+### Date
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `year` | `int` | Year (e.g., 2009) |
+| `month` | `int` | Month (1..12) |
+| `day` | `int` | Day (1..31) |
+
+### DateTime
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `date` | `Date` |  |
+| `hour` | `int` |  |
+| `minute` | `int` |  |
+| `second` | `int` |  |
+| `timeZoneId` | `string` |  |
+
+### DateTimeRange
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `startDateTime` | `DateTime` | The start date time of this range. This field is optional and if it is not set then there is no lower bound on the date time range. If this field is not set then `endDateTime` must be specified. |
+| `endDateTime` | `DateTime` | The end date time of this range. This field is optional and if it is not set then there is no upper bound on the date time range. If this field is not set then `startDateTime` must be specified. |
+
+### DateTimeRangeTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedDateTimeRanges` | `DateTimeRange[]` |  |
+
+### DateTimeValue
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Value` (inherited)** | | |
+| **`DateTimeValue`** | | |
+| `value` | `DateTime` | The `DateTime` value. |
+
+### DateValue
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Value` (inherited)** | | |
+| **`DateValue`** | | |
+| `value` | `Date` | The `Date` value. |
+
+### DayPart
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `startTime` | `TimeOfDay` | Represents the start time of the targeted period (inclusive). |
+| `endTime` | `TimeOfDay` | Represents the end time of the targeted period (exclusive). |
+
+### DayPartTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `dayParts` | `DayPart[]` | Specifies days of the week and times at which a `LineItem` will be delivered. If targeting all days and times, this value will be ignored. |
+
+### DeleteLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`DeleteLineItems`** | | |
+
+### DeliveryData
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `units` | `long[]` | Clicks or impressions delivered for the last 7 days. |
+
+### DeliveryIndicator
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `expectedDeliveryPercentage` | `double` | How much the `LineItem` was expected to deliver as a percentage of LineItem.primaryGoal. |
+| `actualDeliveryPercentage` | `double` | How much the line item actually delivered as a percentage of LineItem.primaryGoal. |
+
+### DeviceCapability
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`DeviceCapability`** | | |
+
+### DeviceCapabilityTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedDeviceCapabilities` | `Technology[]` | Device capabilities that are being targeted by the LineItem. |
+| `excludedDeviceCapabilities` | `Technology[]` | Device capabilities that are being excluded by the LineItem. |
+
+### DeviceCategory
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`DeviceCategory`** | | |
+
+### DeviceCategoryTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedDeviceCategories` | `Technology[]` | Device categories that are being targeted by the LineItem. |
+| `excludedDeviceCategories` | `Technology[]` | Device categories that are being excluded by the LineItem. |
+
+### DeviceManufacturer
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`DeviceManufacturer`** | | |
+
+### DeviceManufacturerTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isTargeted` | `boolean` | Indicates whether device manufacturers should be targeted or excluded. This attribute is optional and defaults to `true`. |
+| `deviceManufacturers` | `Technology[]` | Device manufacturers that are being targeted or excluded by the LineItem. |
+
+### FieldPathElement
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `field` | `string` | The name of a field in lower camelcase. (e.g. "biddingStrategy") |
+| `index` | `int` | For list fields, this is a 0-indexed position in the list. Null for non-list fields. |
+
+### FrequencyCap
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `maxImpressions` | `int` | The maximum number of impressions than can be served to a user within a specified time period. |
+| `numTimeUnits` | `int` | The number of `FrequencyCap#timeUnit` to represent the total time period. |
+
+### GeoTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedLocations` | `Location[]` | The geographical locations being targeted by the LineItem. |
+| `excludedLocations` | `Location[]` | The geographical locations being excluded by the LineItem. |
+
+### Goal
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `units` | `long` | If this is a primary goal, it represents the number or percentage of impressions or clicks that will be reserved for the `LineItem`. If the line item is of type LineItemType.SPONSORSHIP, it represe... |
+
+### GrpSettings
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `minTargetAge` | `long` | Specifies the minimum target age (in years) of the LineItem. This field is only applicable if provider is not null. |
+| `maxTargetAge` | `long` | Specifies the maximum target age (in years) of the LineItem. This field is only applicable if provider is not null. |
+| `inTargetRatioEstimateMilliPercent` | `long` | Estimate for the in-target ratio given the line item's audience targeting. This field is only applicable if provider is Nielsen, LineItem.primaryGoal is in-target impressions, and LineItem.CostType... |
+| `applyTrueCoview` | `boolean` | Specifies whether to apply true coviewing in Nielsen Line Item auto pacing. This field can only be true if NielsenCtvPacingType is not NONE. |
+
+### InventorySizeTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isTargeted` | `boolean` | Whether the inventory sizes should be targeted or excluded. |
+| `targetedSizes` | `TargetedSize[]` | A list of `TargetedSizeDto`s. |
+
+### InventoryTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedAdUnits` | `AdUnitTargeting[]` | A list of targeted AdUnitTargeting. |
+| `excludedAdUnits` | `AdUnitTargeting[]` | A list of excluded AdUnitTargeting. |
+| `targetedPlacementIds` | `long[]` | A list of targeted Placement ids. |
+
+### InventoryUrl
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `long` |  |
+
+### InventoryUrlTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedUrls` | `InventoryUrl[]` |  |
+| `excludedUrls` | `InventoryUrl[]` |  |
+
+### LineItem
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemSummary` (inherited)** | | |
+| `orderId` | `long` | The ID of the Order to which the `LineItem` belongs. This attribute is required on create and ignored on update. |
+| `id` | `long` | Uniquely identifies the `LineItem`. This attribute is read-only and is assigned by Google when a line item is created. |
+| `name` | `string` | The name of the line item. This attribute is required and has a maximum length of 255 characters. |
+| `externalId` | `string` | An identifier for the `LineItem` that is meaningful to the publisher. This attribute is optional and has a maximum length of 255 characters. |
+| `orderName` | `string` | The name of the Order. This value is read-only. |
+| `startDateTime` | `DateTime` | The date and time on which the `LineItem` is enabled to begin serving. This attribute is required and must be in the future. |
+| `endDateTime` | `DateTime` | The date and time on which the `LineItem` will stop serving. This attribute is required unless LineItem.unlimitedEndDateTime is set to `true`. If specified, it must be after the LineItem.startDateT... |
+| `autoExtensionDays` | `int` | The number of days to allow a line item to deliver past its endDateTime. A maximum of 7 days is allowed. This is feature is only available for Ad Manager 360 accounts. |
+| `unlimitedEndDateTime` | `boolean` | Specifies whether or not the `LineItem` has an end time. This attribute is optional and defaults to false. It can be be set to `true` for only line items of type LineItemType.SPONSORSHIP, LineItemT... |
+| `customPacingCurve` | `CustomPacingCurve` | The curve that is used to pace the line item's delivery. This field is required if and only if the delivery forecast source is DeliveryForecastSource.CUSTOM\_PACING\_CURVE. |
+| `frequencyCaps` | `FrequencyCap[]` | The set of frequency capping units for this `LineItem`. This attribute is optional. |
+| `costPerUnit` | `Money` | The amount of money to spend per impression or click. This attribute is required for creating a `LineItem`. |
+| `valueCostPerUnit` | `Money` | An amount to help the adserver rank inventory. LineItem.valueCostPerUnit artificially raises the value of inventory over the LineItem.costPerUnit but avoids raising the actual LineItem.costPerUnit.... |
+| `discount` | `double` | The number here is either a percentage or an absolute value depending on the `LineItemDiscountType`. If the `LineItemDiscountType` is LineItemDiscountType.PERCENTAGE, then only non-fractional value... |
+| `contractedUnitsBought` | `long` | This attribute is only applicable for certain line item types and acts as an "FYI" or note, which does not impact adserving or other backend systems. For LineItemType.SPONSORSHIP line items, this r... |
+| `creativePlaceholders` | `CreativePlaceholder[]` | Details about the creatives that are expected to serve through this `LineItem`. This attribute is required and replaces the `creativeSizes` attribute. |
+| `activityAssociations` | `LineItemActivityAssociation[]` | This attribute is required and meaningful only if the LineItem.costType is `CostType.CPA`. |
+| `allowOverbook` | `boolean` | The flag indicates whether overbooking should be allowed when creating or updating reservations of line item types LineItemType.SPONSORSHIP and LineItemType.STANDARD. When true, operations on this ... |
+| `skipInventoryCheck` | `boolean` | The flag indicates whether the inventory check should be skipped when creating or updating a line item. The default value is false. Note: this field will not persist on the line item itself, and th... |
+| `skipCrossSellingRuleWarningChecks` | `boolean` | True to skip checks for warnings from rules applied to line items targeting inventory shared by a distributor partner for cross selling when performing an action on this line item. The default is f... |
+| `reserveAtCreation` | `boolean` | The flag indicates whether inventory should be reserved when creating a line item of types LineItemType.SPONSORSHIP and LineItemType.STANDARD in an unapproved Order. The default value is false. |
+| `stats` | `Stats` | Contains trafficking statistics for the line item. This attribute is readonly and is populated by Google. This will be `null` in case there are no statistics for a line item yet. |
+| `deliveryIndicator` | `DeliveryIndicator` | Indicates how well the line item has been performing. This attribute is readonly and is populated by Google. This will be `null` if the delivery indicator information is not available due to one of... |
+| `deliveryData` | `DeliveryData` | Delivery data provides the number of clicks or impressions delivered for a LineItem in the last 7 days. This attribute is readonly and is populated by Google. This will be `null` if the delivery da... |
+| `budget` | `Money` | The amount of money allocated to the `LineItem`. This attribute is readonly and is populated by Google. The currency code is readonly. |
+| `isArchived` | `boolean` | The archival status of the `LineItem`. This attribute is readonly. |
+| `webPropertyCode` | `string` | The web property code used for dynamic allocation line items. This web property is only required with line item types LineItemType.AD\_EXCHANGE and LineItemType.ADSENSE. |
+| `appliedLabels` | `AppliedLabel[]` | The set of labels applied directly to this line item. |
+| `effectiveAppliedLabels` | `AppliedLabel[]` | Contains the set of labels inherited from the order that contains this line item and the advertiser that owns the order. If a label has been negated, only the negated label is returned. This field ... |
+| `disableSameAdvertiserCompetitiveExclusion` | `boolean` | If a line item has a series of competitive exclusions on it, it could be blocked from serving with line items from the same advertiser. Setting this to `true` will allow line items from the same ad... |
+| `lastModifiedByApp` | `string` | The application that last modified this line item. This attribute is read only and is assigned by Google. |
+| `notes` | `string` | Provides any additional notes that may annotate the `LineItem`. This attribute is optional and has a maximum length of 65,535 characters. |
+| `lastModifiedDateTime` | `DateTime` | The date and time this line item was last modified. This attribute is read only. |
+| `creationDateTime` | `DateTime` | This attribute may be `null` for line items created before this feature was introduced. |
+| `customFieldValues` | `BaseCustomFieldValue[]` | The values of the custom fields associated with this line item. |
+| `isMissingCreatives` | `boolean` | Indicates if a `LineItem` is missing any creatives for the `creativePlaceholders` specified. Creatives can be considered missing for several reasons including:   * Not enough creatives of a certain... |
+| `thirdPartyMeasurementSettings` | `ThirdPartyMeasurementSettings` |  |
+| `youtubeKidsRestricted` | `boolean` | Designates this line item as intended for YT Kids app. If true, all creatives associated with this line item must be reviewed and approved. See the Ad Manager Help Center  for more information. |
+| `videoMaxDuration` | `long` | The max duration of a video creative associated with this `LineItem` in milliseconds. This attribute is only meaningful for video line items. For version v202011 and earlier, this attribute is opti... |
+| `primaryGoal` | `Goal` | The primary goal that this `LineItem` is associated with, which is used in its pacing and budgeting. |
+| `secondaryGoals` | `Goal[]` | The secondary goals that this `LineItem` is associated with. It is required and meaningful only if the LineItem.costType is `CostType.CPA` or if the LineItem.lineItemType is LineItemType.SPONSORSHI... |
+| `grpSettings` | `GrpSettings` | Contains the information for a line item which has a target GRP demographic. |
+| `dealInfo` | `LineItemDealInfoDto` | The deal information associated with this line item, if it is programmatic. |
+| `viewabilityProviderCompanyIds` | `long[]` | Optional IDs of the Company that provide ad verification for this line item. Company.Type.VIEWABILITY\_PROVIDER. |
+| `customVastExtension` | `string` | Custom XML to be rendered in a custom VAST response at serving time. |
+| `repeatedCreativeServingEnabled` | `boolean` | Indicates whether repeated creative serving is enabled for this line item. |
+| `deliveryAllocationProfileId` | `long` | The `AllocationDeliveryProfile` ID for this line item. |
+| **`LineItem`** | | |
+| `targeting` | `Targeting` | Contains the targeting criteria for the ad campaign. This attribute is required. |
+| `creativeTargetings` | `CreativeTargeting[]` | A list of CreativeTargeting objects that can be used to specify creative level targeting for this line item. Creative level targeting is specified in a creative placeholder's CreativePlaceholder.ta... |
+
+### LineItemActivityAssociation
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `activityId` | `int` | The ID of the `Activity` to which the LineItem should be associated. This attribute is required. |
+| `clickThroughConversionCost` | `Money` | The amount of money to attribute per click through conversion. This attribute is required for creating a `LineItemActivityAssociation`. The currency code is readonly and should match the LineItem. |
+| `viewThroughConversionCost` | `Money` | The amount of money to attribute per view through conversion. This attribute is required for creating a `LineItemActivityAssociation`. The currency code is readonly and should match the LineItem. |
+
+### LineItemDealInfoDto
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `externalDealId` | `long` | The external deal ID shared between seller and buyer. This field is only present if the deal has been finalized. This attribute is read-only and is assigned by Google. |
+
+### LineItemPage
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `totalResultSetSize` | `int` | The size of the total result set to which this page belongs. |
+| `startIndex` | `int` | The absolute index in the total result set on which this page begins. |
+| `results` | `LineItem[]` | The collection of line items contained within this page. |
+
+### Location
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `long` | Uniquely identifies each `Location`. |
+| `type` | `string` | The location type for this geographical entity (ex. "COUNTRY", "CITY", "STATE", "COUNTY", etc.) |
+| `canonicalParentId` | `int` | The nearest location parent's ID for this geographical entity. |
+| `displayName` | `string` | The localized name of the geographical entity. |
+
+### MobileApplicationTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `mobileApplicationIds` | `long[]` | The IDs that are being targeted or excluded. |
+| `isTargeted` | `boolean` | Indicates whether mobile apps should be targeted or excluded. This attribute is optional and defaults to `true`. |
+
+### MobileCarrier
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`MobileCarrier`** | | |
+
+### MobileCarrierTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isTargeted` | `boolean` | Indicates whether mobile carriers should be targeted or excluded. This attribute is optional and defaults to `true`. |
+| `mobileCarriers` | `Technology[]` | Mobile carriers that are being targeted or excluded by the LineItem. |
+
+### MobileDevice
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`MobileDevice`** | | |
+| `manufacturerCriterionId` | `long` | Manufacturer Id. |
+
+### MobileDeviceSubmodel
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`MobileDeviceSubmodel`** | | |
+| `mobileDeviceCriterionId` | `long` | The mobile device id. |
+| `deviceManufacturerCriterionId` | `long` | The device manufacturer id. |
+
+### MobileDeviceSubmodelTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedMobileDeviceSubmodels` | `Technology[]` | Mobile device submodels that are being targeted by the LineItem. |
+| `excludedMobileDeviceSubmodels` | `Technology[]` | Mobile device submodels that are being excluded by the LineItem. |
+
+### MobileDeviceTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedMobileDevices` | `Technology[]` | Mobile devices that are being targeted by the LineItem. |
+| `excludedMobileDevices` | `Technology[]` | Mobile devices that are being excluded by the LineItem. |
+
+### Money
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `currencyCode` | `string` | Three letter currency code in string format. |
+| `microAmount` | `long` | Money values are always specified in terms of micros which are a millionth of the fundamental currency unit. For US dollars, $1 is 1,000,000 micros. |
+
+### NumberValue
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Value` (inherited)** | | |
+| **`NumberValue`** | | |
+| `value` | `string` | The numeric value represented as a string. |
+
+### ObjectValue
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Value` (inherited)** | | |
+| **`ObjectValue`** | | |
+
+### OperatingSystem
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`OperatingSystem`** | | |
+
+### OperatingSystemTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isTargeted` | `boolean` | Indicates whether operating systems should be targeted or excluded. This attribute is optional and defaults to `true`. |
+| `operatingSystems` | `Technology[]` | Operating systems that are being targeted or excluded by the LineItem. |
+
+### OperatingSystemVersion
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Technology` (inherited)** | | |
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+| **`OperatingSystemVersion`** | | |
+| `majorVersion` | `int` | The operating system major version. |
+| `minorVersion` | `int` | The operating system minor version. |
+| `microVersion` | `int` | The operating system micro version. |
+
+### OperatingSystemVersionTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedOperatingSystemVersions` | `Technology[]` | Operating system versions that are being targeted by the LineItem. |
+| `excludedOperatingSystemVersions` | `Technology[]` | Operating system versions that are being excluded by the LineItem. |
+
+### PauseLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`PauseLineItems`** | | |
+
+### PublisherProvidedSignalsTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedTaxonomyCategoryIds` | `long[]` |  |
+| `excludedTaxonomyCategoryIds` | `long[]` |  |
+
+### ReleaseLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`ReleaseLineItems`** | | |
+
+### ReserveAndOverbookLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`ReserveLineItems` (inherited)** | | |
+| `skipInventoryCheck` | `boolean` | Indicates whether the inventory check should be skipped when performing this action. The default value is false. |
+| **`ReserveAndOverbookLineItems`** | | |
+
+### ReserveLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`ReserveLineItems`** | | |
+| `skipInventoryCheck` | `boolean` | Indicates whether the inventory check should be skipped when performing this action. The default value is false. |
+
+### ResumeAndOverbookLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`ResumeLineItems` (inherited)** | | |
+| `skipInventoryCheck` | `boolean` | Indicates whether the inventory check should be skipped when performing this action. The default value is false. |
+| **`ResumeAndOverbookLineItems`** | | |
+
+### ResumeLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`ResumeLineItems`** | | |
+| `skipInventoryCheck` | `boolean` | Indicates whether the inventory check should be skipped when performing this action. The default value is false. |
+
+### SetValue
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Value` (inherited)** | | |
+| **`SetValue`** | | |
+| `values` | `Value[]` | The values. They must all be the same type of `Value` and not contain duplicates. |
+
+### Size
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `width` | `int` | The width of the AdUnit, LineItem or Creative. |
+| `height` | `int` | The height of the AdUnit, LineItem or Creative. |
+| `isAspectRatio` | `boolean` | Whether this size represents an aspect ratio. |
+
+### Statement
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `query` | `string` | Holds the query in PQL syntax. The syntax is:  `[WHERE <condition> {[AND |
+| `values` | `String_ValueMapEntry[]` | Holds keys and values for bind variables and their values. The key is the name of the bind variable. The value is the literal value of the variable. In the example `"WHERE status = :bindStatus ORDE... |
+
+### Stats
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `impressionsDelivered` | `long` | The number of impressions delivered. |
+| `clicksDelivered` | `long` | The number of clicks delivered. |
+| `videoCompletionsDelivered` | `long` | The number of video completions delivered. |
+| `videoStartsDelivered` | `long` | The number of video starts delivered. |
+| `viewableImpressionsDelivered` | `long` | The number of viewable impressions delivered. |
+
+### String_ValueMapEntry
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `key` | `string` |  |
+| `value` | `Value` | 7. `TextValue` |
+
+### TargetedSize
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `size` | `Size` |  |
+
+### Targeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `geoTargeting` | `GeoTargeting` | Specifies what geographical locations are targeted by the LineItem. This attribute is optional. |
+| `inventoryTargeting` | `InventoryTargeting` | Specifies what inventory is targeted by the LineItem. This attribute is required. The line item must target at least one ad unit or placement. |
+| `dayPartTargeting` | `DayPartTargeting` | Specifies the days of the week and times that are targeted by the LineItem. This attribute is optional. |
+| `dateTimeRangeTargeting` | `DateTimeRangeTargeting` | Specifies the dates and time ranges that are targeted by the LineItem. This attribute is optional. |
+| `technologyTargeting` | `TechnologyTargeting` | Specifies the browsing technologies that are targeted by the LineItem. This attribute is optional. |
+| `customTargeting` | `CustomCriteriaSet` | Specifies the collection of custom criteria that is targeted by the LineItem. Once the LineItem is updated or modified with custom targeting, the server may return a normalized, but equivalent repr... |
+| `userDomainTargeting` | `UserDomainTargeting` | Specifies the domains or subdomains that are targeted or excluded by the LineItem. Users visiting from an IP address associated with those domains will be targeted or excluded. This attribute is op... |
+| `contentTargeting` | `ContentTargeting` | Specifies the video categories and individual videos targeted by the LineItem. |
+| `videoPositionTargeting` | `VideoPositionTargeting` | Specifies targeting against video position types. |
+| `mobileApplicationTargeting` | `MobileApplicationTargeting` | Specifies targeting against mobile applications. |
+| `buyerUserListTargeting` | `BuyerUserListTargeting` | Specifies whether buyer user lists are targeted on a programmatic LineItem or ProposalLineItem. This attribute is readonly and is populated by Google. |
+| `inventoryUrlTargeting` | `InventoryUrlTargeting` | Specifies the URLs that are targeted by the entity. This is currently only supported by YieldGroup. |
+| `verticalTargeting` | `VerticalTargeting` | Specifies the verticals that are targeted by the entity. The IDs listed here correspond to the IDs in the AD\_CATEGORY table of type VERTICAL. |
+| `contentLabelTargeting` | `ContentLabelTargeting` | Specifies the content labels that are excluded by the entity. The IDs listed here correspond to the IDs in the CONTENT\_LABEL table. |
+| `requestPlatformTargeting` | `RequestPlatformTargeting` | Specifies the request platforms that are targeted by the LineItem. This attribute is required for video line items and for ProposalLineItem. This value is modifiable for video line items, but read-... |
+| `inventorySizeTargeting` | `InventorySizeTargeting` | Specifies the sizes that are targeted by the entity. This is currently only supported on YieldGroup and TrafficDataRequest. |
+| `publisherProvidedSignalsTargeting` | `PublisherProvidedSignalsTar...` |  |
+
+### Technology
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `long` | The unique ID of the `Technology`. This value is required for all forms of `TechnologyTargeting`. |
+| `name` | `string` | The name of the technology being targeting. This value is read-only and is assigned by Google. |
+
+### TechnologyTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `bandwidthGroupTargeting` | `BandwidthGroupTargeting` | The bandwidth groups being targeted by the LineItem. |
+| `browserTargeting` | `BrowserTargeting` | The browsers being targeted by the LineItem. |
+| `browserLanguageTargeting` | `BrowserLanguageTargeting` | The languages of browsers being targeted by the LineItem. |
+| `deviceCapabilityTargeting` | `DeviceCapabilityTargeting` | The device capabilities being targeted by the LineItem. |
+| `deviceCategoryTargeting` | `DeviceCategoryTargeting` | The device categories being targeted by the LineItem. |
+| `deviceManufacturerTargeting` | `DeviceManufacturerTargeting` | The device manufacturers being targeted by the LineItem. |
+| `mobileCarrierTargeting` | `MobileCarrierTargeting` | The mobile carriers being targeted by the LineItem. |
+| `mobileDeviceTargeting` | `MobileDeviceTargeting` | The mobile devices being targeted by the LineItem. |
+| `mobileDeviceSubmodelTargeting` | `MobileDeviceSubmodelTargeting` | The mobile device submodels being targeted by the LineItem. |
+| `operatingSystemTargeting` | `OperatingSystemTargeting` | The operating systems being targeted by the LineItem. |
+| `operatingSystemVersionTargeting` | `OperatingSystemVersionTarge...` | The operating system versions being targeted by the LineItem. |
+
+### TextValue
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`Value` (inherited)** | | |
+| **`TextValue`** | | |
+| `value` | `string` | The string value. |
+
+### ThirdPartyMeasurementSettings
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `viewabilityClientId` | `string` | The third party partner id for YouTube viewability verification. |
+| `viewabilityReportingId` | `string` | The reporting id that maps viewability partner data with a campaign (or a group of related campaigns) specific data. |
+| `publisherViewabilityClientId` | `string` | The third party partner id for YouTube viewability verification for publisher. |
+| `publisherViewabilityReportingId` | `string` | The reporting id that maps viewability partner data with a campaign (or a group of related campaigns) specific data for publisher. |
+| `brandLiftClientId` | `string` | The third party partner id for YouTube brand lift verification. |
+| `brandLiftReportingId` | `string` | The reporting id that maps brand lift partner data with a campaign (or a group of related campaigns) specific data. |
+| `reachClientId` | `string` | The third party partner id for YouTube reach verification for advertiser. |
+| `reachReportingId` | `string` | The reporting id that maps reach partner data with a campaign (or a group of related campaigns) specific data for advertiser. |
+| `publisherReachClientId` | `string` | The third party partner id for YouTube reach verification for publisher. |
+| `publisherReachReportingId` | `string` | The reporting id that maps reach partner data with a campaign (or a group of related campaigns) specific data for publisher. |
+
+### TimeOfDay
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `hour` | `int` | Hour in 24 hour time (0..24). This field must be between 0 and 24, inclusive. This field is required. |
+
+### UnarchiveLineItems
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **`LineItemAction` (inherited)** | | |
+| **`UnarchiveLineItems`** | | |
+
+### UpdateResult
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `numChanges` | `int` | The number of objects that were changed as a result of performing the action. |
+
+### UserDomainTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domains` | `string[]` | The domains or subdomains that are being targeted or excluded by the LineItem. This attribute is required and the maximum length of each domain is 67 characters. |
+| `targeted` | `boolean` | Indicates whether domains should be targeted or excluded. This attribute is optional and defaults to `true`. |
+
+### VerticalTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedVerticalIds` | `long[]` |  |
+| `excludedVerticalIds` | `long[]` |  |
+
+### VideoPosition
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `midrollIndex` | `int` | The index of the mid-roll to target. Only valid if the `positionType` is `VideoPositionType.MIDROLL`, otherwise this field will be ignored. |
+
+### VideoPositionTarget
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `videoPosition` | `VideoPosition` | The video position to target. This attribute is required. |
+| `videoPositionWithinPod` | `VideoPositionWithinPod` | The video position within a pod to target. To target a video position or a bumper position, this value must be null. To target a position within a pod this value must be populated. To target a cust... |
+| `adSpotId` | `long` | A custom spot AdSpot to target. To target a video position, a bumper type or a video position within a pod this value must be null. |
+
+### VideoPositionTargeting
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targetedPositions` | `VideoPositionTarget[]` | The `VideoTargetingPosition` objects being targeted by the video LineItem. |
+
+### VideoPositionWithinPod
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `index` | `int` | The specific index of the pod. The index is defined as:  * 1 = first * 2 = second * 3 = third * .... * 100 = last  100 will always be the last position. For example, for a pod with 5 positions, 100... |
 
 ## Enumerations
 
-### ComputedStatus
+### ComputedStatus (`LineItem.status`)
 | Value | Description |
 |-------|-------------|
-| `DRAFT` | |
-| `INACTIVE` | |
-| `PENDING_APPROVAL` | |
-| `APPROVED` | |
-| `NEEDS_REVIEW` | |
-| `PAUSED` | |
-| `PROCESSING` | |
-| `ACTIVE` | |
-| `DISAPPROVED` | |
-| `WAITING_FOR_CREATIVE` | |
-| `COMPLETED` | |
-| `ARCHIVED` | |
-| `CANCELLED` | |
-| `EXPIRED` | |
-| `DELIVERING` | |
-| `PAST_END_DATE` | |
+| `DELIVERY_EXTENDED` | Line item has past its end time but is still delivering in auto-extension window. |
+| `DELIVERING` | Line item has begun serving. |
+| `READY` | Line item has been activated and is ready to serve. |
+| `PAUSED` | Line item has been paused from serving. |
+| `INACTIVE` | Line item is inactive (no creatives or awaiting approval). |
+| `PAUSED_INVENTORY_RELEASED` | Line item has been paused and its reserved inventory has been released. |
+| `PENDING_APPROVAL` | Line item has been submitted for approval. |
+| `COMPLETED` | Line item has completed its run. |
+| `DISAPPROVED` | Line item has been disapproved. |
+| `DRAFT` | Line item is still being drafted. |
+| `CANCELED` | Line item has been canceled. |
 
-
-### LineItemType
+### LineItemType (`LineItem.lineItemType`)
 | Value | Description |
 |-------|-------------|
-| `STANDARD` | |
-| `PREMIUM` | |
-| `FIXED_PRICE` | |
-| `HOUSE` | |
-| `CLICK_TRACKING` | |
-| `BRAND_MANAGEMENT` | |
+| `SPONSORSHIP` | Percentage-of-voice guaranteed line item. |
+| `STANDARD` | Fixed-quantity guaranteed line item. |
+| `NETWORK` | Percentage-of-remaining-inventory non-guaranteed line item. |
+| `BULK` | Fixed-quantity non-guaranteed line item. |
+| `PRICE_PRIORITY` | Price-priority non-guaranteed line item. |
+| `HOUSE` | House ad line item (lowest priority backfill). |
+| `CLICK_TRACKING` | Click-tracking only line item. |
+| `AD_EXCHANGE` | Dynamic allocation Ad Exchange line item. |
+| `ADSENSE` | Dynamic allocation AdSense line item. |
+| `BUMPER` | Short bumper video ad line item. |
+| `PREFERRED_DEAL` | Programmatic Preferred Deal line item. |
 
+### CostType (`LineItem.costType`)
+- `CPA`, `CPC`, `CPD`, `CPM`, `VCPM`, `CPM_IN_TARGET`
 
-### CostType
-| Value | Description |
-|-------|-------------|
-| `CPM` | |
-| `CPC` | |
-| `CPS` | |
-| `CPA` | |
-| `UNKNOWN` | |
+### GoalType (`Goal.goalType`) & UnitType (`Goal.unitType`)
+- **GoalType**: `NONE`, `LIFETIME`, `DAILY`
+- **UnitType**: `IMPRESSIONS`, `CLICKS`, `CLICK_THROUGH_CPA_CONVERSIONS`, `VIEW_THROUGH_CPA_CONVERSIONS`, `TOTAL_CPA_CONVERSIONS`, `VIEWABLE_IMPRESSIONS`, `IN_TARGET_IMPRESSIONS`
 
+### TimeUnit (`FrequencyCap.timeUnit`)
+- `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `LIFETIME`, `POD`, `STREAM`
 
-### StartDateTimeType
-| Value | Description |
-|-------|-------------|
-| `USE_START_DATE_TIME` | |
-| `IMMEDIATELY` | |
+### EnvironmentType (`LineItem.environmentType`)
+- `BROWSER`, `VIDEO_PLAYER`
 
+### DeliveryRateType (`LineItem.deliveryRateType`)
+- `EVENLY`, `FRONTLOADED`, `AS_FAST_AS_POSSIBLE`
 
-### EnvironmentType
-| Value | Description |
-|-------|-------------|
-| `SERVING` | |
-| `PAUSED` | |
-| `INACTIVE` | |
-
-
-### CreativeRotationType
-| Value | Description |
-|-------|-------------|
-| `SEQUENTIAL` | |
-| `WEIGHTED_RANDOM` | |
-
-
-### TargetingUnitType
-| Value | Description |
-|-------|-------------|
-| `CUSTOM` | |
-| `INVENTORY` | |
-
-
-### ReservationType
-| Value | Description |
-|-------|-------------|
-| `RESERVATION` | |
-| `NON_GUARANTEED` | |
-
-
-### CostPerUnitType
-| Value | Description |
-|-------|-------------|
-| `CPM` | |
-| `CPC` | |
-| `CPS` | |
-
-
-### CreativeSizePolicy
-| Value | Description |
-|-------|-------------|
-| `IGNORE` | |
-| `DISAPPROVED` | |
-| `REQUIRE_ONE_SIZE` | |
-
+### CreativeRotationType (`LineItem.creativeRotationType`)
+- `EVEN`, `OPTIMIZED`, `MANUAL`, `SEQUENTIAL`
